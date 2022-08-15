@@ -40,4 +40,4 @@ luac.out
 *.hex
 
 
-neovim/plugin/packer_compiled.lua
+neovim/plugin
