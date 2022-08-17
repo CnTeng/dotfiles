@@ -9,7 +9,16 @@ Import-Module "$($(Get-Item $(Get-Command scoop).Path).Directory.Parent.FullName
 Import-Module "$($(Get-Item $(Get-Command scoop).Path).Directory.Parent.FullName)\modules\scoop-completion" -ErrorAction SilentlyContinue
 
 # Autocompletion of git
-Import-Module posh-git
+Import-Module PSGitCompletions
+
+# Set ls
+If (-Not (Test-Path Variable:PSise)) {  # Only run this in the console and not in the ISE
+    Import-Module Get-ChildItemColor
+    
+    Set-Alias l Get-ChildItemColor -option AllScope
+    Set-Alias ls Get-ChildItemColorFormatWide -option AllScope
+}
+
 
 # Autocompletion of winget
 Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
@@ -24,6 +33,19 @@ Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
 
 # Set PSReadLine
 Import-Module PSReadLine
+
+# Set Vi Mode
+Set-PSReadlineOption -EditMode Vi
+function OnViModeChange {
+    if ($args[0] -eq 'Command') {
+        # Set the cursor to a blinking block.
+        Write-Host -NoNewLine "`e[1 q"
+    } else {
+        # Set the cursor to a blinking line.
+        Write-Host -NoNewLine "`e[5 q"
+    }
+}
+Set-PSReadLineOption -ViModeIndicator Script -ViModeChangeHandler $Function:OnViModeChange
 
 # Autocomplete when hitting Tab
 Set-PSReadlineKeyHandler -Key Tab -Function Complete
@@ -40,3 +62,4 @@ Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
 
 # Auto suggestions
 Set-PSReadLineOption -PredictionSource History
+

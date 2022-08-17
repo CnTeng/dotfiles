@@ -6,22 +6,17 @@ end
 
 mason_tool_installer.setup({
 	ensure_installed = {
-		-- Formatter
-		"stylua",
-		"black",
-		"prettier",
-		"clang-format",
-		"golines",
+		-- Linter
 		"flake8",
 
-		-- LSP
-		"json-lsp",
-		"lua-language-server",
-		"clangd",
-		"gopls",
-		"pyright",
+		-- Formatter
+		"prettier",
+		"stylua",
+		"clang-format",
+		"golines",
+		"black",
 	},
 	auto_update = true,
 	run_on_start = true,
-	start_delay = 3000,  -- 3 second delay
+	start_delay = 3000, -- 3 second delay
 })
