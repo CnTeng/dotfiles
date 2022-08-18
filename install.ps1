@@ -5,15 +5,15 @@ function trylink {
   try {
     New-Item -ItemType SymbolicLink -Path $TargetPath -Target $SourcePath -ErrorAction Stop
   } catch{
-    Write-Output "Error"
-    Write-Output "`n"
+    Write-Host "Error" -ForegroundColor red
+    Write-Host "`n"
     $iserror = $true
   }
   if ($iserror) {
     return
   } else {
-    Write-Output "Link configuration successfully."
-    Write-Output "`n"
+    Write-Host "Link configuration successfully." -ForegroundColor green
+    Write-Host "`n"
   }
 }
 
@@ -21,14 +21,14 @@ function linkconfig {
   [CmdletBinding()]
   Param([string]$Name, [string]$SourcePath, [string]$TargetPath)
   if (Test-Path $TargetPath) {
-    Write-Output "The configuration of $Name exists."
+    Write-Host "The configuration of $Name exists."
     [string]$ispermit = Read-Host "Do you permit to remove the existing configuration and link a new file?(y or n)"
     if ($ispermit -eq "y") {
       Remove-Item -Path $TargetPath -Recurse
       trylink $SourcePath $TargetPath
     } else {
-      Write-Output "Exit"
-      Write-Output "`n"
+      Write-Host "Exit"
+      Write-Host "`n"
       return
     }
   } else {
