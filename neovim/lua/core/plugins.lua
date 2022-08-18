@@ -259,16 +259,11 @@ return packer.startup(function(use)
 	-- [[Markdown]]
 	use({
 		"iamcco/markdown-preview.nvim",
-		run = function()
-			vim.fn["mkdp#util#install"]()
+		run = "cd app && npm install",
+		setup = function()
+			vim.g.mkdp_filetypes = { "markdown" }
 		end,
-	})
-
-	use({
-		"mrjones2014/smart-splits.nvim",
-		config = function()
-			require("configs.smart-splits")
-		end,
+		ft = { "markdown" },
 	})
 
 	-- Automatically set up your configuration after cloning packer.nvim

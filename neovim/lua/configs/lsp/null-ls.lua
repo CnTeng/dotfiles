@@ -18,7 +18,7 @@ null_ls.setup({
 		formatting.stylua,
 		formatting.black.with({ extra_args = { "--fast" } }),
 		formatting.golines,
-		formatting.clangd_format,
+		formatting.clang_format,
 		diagnostics.flake8,
 	},
 })
