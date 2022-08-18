@@ -10,7 +10,7 @@ local diagnostics = null_ls.builtins.diagnostics
 null_ls.setup({
 	debug = false,
 	sources = {
-    -- formatter
+		-- formatter
 		formatting.prettier.with({
 			extra_filetypes = { "toml" },
 			extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
@@ -18,6 +18,7 @@ null_ls.setup({
 		formatting.stylua,
 		formatting.black.with({ extra_args = { "--fast" } }),
 		formatting.golines,
+		formatting.clangd_format,
 		diagnostics.flake8,
 	},
 })
