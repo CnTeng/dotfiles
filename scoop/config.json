@@ -1,0 +1,7 @@
+{
+  "lastupdate": "2022-08-18T17:04:56.3872451+08:00",
+  "SCOOP_REPO": "https://github.com/lukesampson/scoop",
+  "SCOOP_BRANCH": "master",
+  "aria2-enabled": false,
+  "proxy": "127.0.0.1:10809"
+}

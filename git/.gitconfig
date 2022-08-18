@@ -1,0 +1,9 @@
+[user]
+	name = Snakepi
+	email = tengyufei@live.com
+[http]
+	proxy = socks5://127.0.0.1:10808
+[https]
+	proxy = socks5://127.0.0.1:10808
+[core]
+	autocrlf = true

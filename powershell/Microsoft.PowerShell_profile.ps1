@@ -63,3 +63,6 @@ Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
 # Auto suggestions
 Set-PSReadLineOption -PredictionSource History
 
+# Import custom modules
+Import-Module Update-All
+Set-Alias upall Update-All
