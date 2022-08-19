@@ -1,26 +1,31 @@
 function Update-All {
   Param()
   # scoop update (user)
-  Write-Output "scoop update"
+  Write-Host "scoop update *" -ForegroundColor Blue
   scoop update *
-  Write-Output "`n"
+  Write-Host "`n"
 
   # scoop update (global)
-  Write-Output "scoop update -g"
+  Write-Host "sudo scoop update -g" -ForegroundColor Blue
   sudo scoop update * -g
-  Write-Output "`n"
+  Write-Host "`n"
 
   # winget update
-  Write-Output "winget update"
+  Write-Host "winget update -all" -ForegroundColor Blue
   winget update --all
-  Write-Output "`n"
+  Write-Host "`n"
+
+  # powershell Update-Module
+  Write-Host "Update-Module" -ForegroundColor Blue
+  Update-Module
+  Write-Host "`n"
 
   # conda update
-  Write-Output "conda update"
+  Write-Host "conda update -all" -ForegroundColor Blue
   conda update --all
 
   # wsl update (zypper)
-  Write-Output "wsl update (zypper)"
+  Write-Host "wsl update (zypper)" -ForegroundColor Blue
   wsl --exec sudo zypper up
   wsl --exec sudo zypper dup
 } 

@@ -9,28 +9,28 @@
 @{
 
   # Script module or binary module file associated with this manifest.
-  RootModule = 'Update-All.psm1'
+  RootModule        = 'Update-All.psm1'
 
   # Version number of this module.
-  ModuleVersion = '1.0'
+  ModuleVersion     = '1.0'
 
   # Supported PSEditions
   # CompatiblePSEditions = @()
 
   # ID used to uniquely identify this module
-  GUID = 'b11ae322-378c-4514-9943-d81e52f3516e'
+  GUID              = 'b11ae322-378c-4514-9943-d81e52f3516e'
 
   # Author of this module
-  Author = 'tengy'
+  Author            = 'tengy'
 
   # Company or vendor of this module
-  CompanyName = 'SnakePi Company'
+  CompanyName       = 'SnakePi Company'
 
   # Copyright statement for this module
-  Copyright = '(c) tengy. All rights reserved.'
+  Copyright         = '(c) tengy. All rights reserved.'
 
   # Description of the functionality provided by this module
-  Description = 'Update all the software.'
+  Description       = 'Update all the software.'
 
   # Minimum version of the PowerShell engine required by this module
   # PowerShellVersion = ''
@@ -72,13 +72,13 @@
   FunctionsToExport = @("Update-All")
 
   # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-  CmdletsToExport = @()
+  CmdletsToExport   = @()
 
   # Variables to export from this module
   VariablesToExport = '*'
 
   # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-  AliasesToExport = @()
+  AliasesToExport   = @()
 
   # DSC resources to export from this module
   # DscResourcesToExport = @()
@@ -87,10 +87,10 @@
   # ModuleList = @()
 
   # List of all files packaged with this module
-  FileList = @("Update-All.psd1", "Update-All.psm1")
+  FileList          = @("Update-All.psd1", "Update-All.psm1")
 
   # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
-  PrivateData = @{
+  PrivateData       = @{
 
     PSData = @{
 
