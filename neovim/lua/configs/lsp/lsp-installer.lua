@@ -10,14 +10,14 @@ local servers = {
 	"clangd",
 	"gopls",
 	"pyright",
-  "remark_ls",
+	"remark_ls",
 	"powershell_es",
 }
 
-mason_lspconfig.setup({
+mason_lspconfig.setup {
 	ensure_installed = servers,
 	automatic_installation = true,
-})
+}
 
 local lspconfig_ok, lspconfig = pcall(require, "lspconfig")
 if not lspconfig_ok then
@@ -32,9 +32,7 @@ for _, server in pairs(servers) do
 	}
 
 	local has_custom_opts, server_custom_opts = pcall(require, "configs.lsp.settings." .. server)
-	if has_custom_opts then
-		opts = vim.tbl_deep_extend("force", opts, server_custom_opts)
-	end
+	if has_custom_opts then opts = vim.tbl_deep_extend("force", opts, server_custom_opts) end
 
 	lspconfig[server].setup(opts)
 end

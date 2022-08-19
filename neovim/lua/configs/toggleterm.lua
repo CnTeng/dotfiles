@@ -4,7 +4,7 @@ if not status_ok then
 	return
 end
 
-toggleterm.setup({
+toggleterm.setup {
 	size = function(term)
 		if term.direction == "horizontal" then
 			return 15
@@ -22,7 +22,7 @@ toggleterm.setup({
 	persist_size = true,
 	direction = "float",
 	close_on_exit = true,
-	shell = vim.fn.has("win32") == 1 and "pwsh -Nologo" or "fish",
+	shell = vim.fn.has "win32" == 1 and "pwsh -Nologo" or "fish",
 	float_opts = {
 		border = "curved",
 		winblend = 0,
@@ -31,7 +31,7 @@ toggleterm.setup({
 			background = "Normal",
 		},
 	},
-})
+}
 
 function _G.set_terminal_keymaps()
 	local opts = { noremap = true }
@@ -43,35 +43,25 @@ function _G.set_terminal_keymaps()
 	vim.api.nvim_buf_set_keymap(0, "t", "<C-l>", [[<C-\><C-n><C-W>l]], opts)
 end
 
-vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+vim.cmd "autocmd! TermOpen term://* lua set_terminal_keymaps()"
 
 local Terminal = require("toggleterm.terminal").Terminal
-local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+local lazygit = Terminal:new { cmd = "lazygit", hidden = true }
 
-function _LAZYGIT_TOGGLE()
-	lazygit:toggle()
-end
+function _LAZYGIT_TOGGLE() lazygit:toggle() end
 
-local node = Terminal:new({ cmd = "node", hidden = true })
+local node = Terminal:new { cmd = "node", hidden = true }
 
-function _NODE_TOGGLE()
-	node:toggle()
-end
+function _NODE_TOGGLE() node:toggle() end
 
-local ncdu = Terminal:new({ cmd = "ncdu", hidden = true })
+local ncdu = Terminal:new { cmd = "ncdu", hidden = true }
 
-function _NCDU_TOGGLE()
-	ncdu:toggle()
-end
+function _NCDU_TOGGLE() ncdu:toggle() end
 
-local htop = Terminal:new({ cmd = "htop", hidden = true })
+local htop = Terminal:new { cmd = "htop", hidden = true }
 
-function _HTOP_TOGGLE()
-	htop:toggle()
-end
+function _HTOP_TOGGLE() htop:toggle() end
 
-local python = Terminal:new({ cmd = "python", hidden = true })
+local python = Terminal:new { cmd = "python", hidden = true }
 
-function _PYTHON_TOGGLE()
-	python:toggle()
-end
+function _PYTHON_TOGGLE() python:toggle() end

@@ -4,7 +4,7 @@ if not status_ok then
 	return
 end
 
-bufferline.setup({
+bufferline.setup {
 	options = {
 		mode = "buffers",
 		numbers = "none",
@@ -35,4 +35,4 @@ bufferline.setup({
 		enforce_regular_tabs = true,
 		always_show_bufferline = true,
 	},
-})
+}

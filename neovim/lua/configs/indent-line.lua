@@ -4,7 +4,7 @@ if not status_ok then
 	return
 end
 
-indent_blankline.setup({
+indent_blankline.setup {
 	buftype_exclude = {
 		"nofile",
 		"terminal",
@@ -49,4 +49,4 @@ indent_blankline.setup({
 	show_first_indent_level = true,
 	char = "▏",
 	use_treesitter = true,
-})
+}

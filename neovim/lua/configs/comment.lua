@@ -4,9 +4,9 @@ if not status_ok then
 	return
 end
 
-comment.setup({
+comment.setup {
 	pre_hook = function(ctx)
-		local utils = require("Comment.utils")
+		local utils = require "Comment.utils"
 
 		local location = nil
 		if ctx.ctype == utils.ctype.block then
@@ -15,9 +15,9 @@ comment.setup({
 			location = require("ts_context_commentstring.utils").get_visual_start_location()
 		end
 
-		return require("ts_context_commentstring.internal").calculate_commentstring({
+		return require("ts_context_commentstring.internal").calculate_commentstring {
 			key = ctx.ctype == utils.ctype.line and "__default" or "__multiline",
 			location = location,
-		})
+		}
 	end,
-})
+}

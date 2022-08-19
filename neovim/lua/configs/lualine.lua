@@ -4,9 +4,7 @@ if not status_ok then
 	return
 end
 
-local hide_in_width = function()
-	return vim.fn.winwidth(0) > 80
-end
+local hide_in_width = function() return vim.fn.winwidth(0) > 80 end
 
 local diagnostics = {
 	"diagnostics",
@@ -27,9 +25,7 @@ local diff = {
 
 local mode = {
 	"mode",
-	fmt = function(str)
-		return "-- " .. str .. " --"
-	end,
+	fmt = function(str) return "-- " .. str .. " --" end,
 }
 
 local filetype = {
@@ -51,19 +47,17 @@ local location = {
 
 -- cool function for progress
 local progress = function()
-	local current_line = vim.fn.line(".")
-	local total_lines = vim.fn.line("$")
+	local current_line = vim.fn.line "."
+	local total_lines = vim.fn.line "$"
 	local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
 	local line_ratio = current_line / total_lines
 	local index = math.ceil(line_ratio * #chars)
 	return chars[index]
 end
 
-local spaces = function()
-	return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
-end
+local spaces = function() return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth") end
 
-lualine.setup({
+lualine.setup {
 	options = {
 		icons_enabled = true,
 		theme = "auto",
@@ -91,4 +85,4 @@ lualine.setup({
 	},
 	tabline = {},
 	extensions = {},
-})
+}

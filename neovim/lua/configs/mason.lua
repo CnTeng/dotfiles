@@ -4,7 +4,7 @@ if not status_ok then
 	return
 end
 
-mason.setup({
+mason.setup {
 	ui = {
 		icons = {
 			package_installed = "✓",
@@ -23,4 +23,4 @@ mason.setup({
 		cancel_installation = "<C-c>",
 		apply_language_filter = "<C-f>",
 	},
-})
+}

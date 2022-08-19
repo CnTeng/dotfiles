@@ -1,10 +1,10 @@
 local status_ok, alpha = pcall(require, "alpha")
 if not status_ok then
-	vim.notify("alpha not found!")
+	vim.notify "alpha not found!"
 	return
 end
 
-local dashboard = require("alpha.themes.dashboard")
+local dashboard = require "alpha.themes.dashboard"
 dashboard.section.header.val = {
 	"                                                     ",
 	"  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",

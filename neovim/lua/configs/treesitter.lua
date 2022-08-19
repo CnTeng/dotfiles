@@ -4,7 +4,7 @@ if not status_ok then
 	return
 end
 
-treesitter.setup({
+treesitter.setup {
 	ensure_installed = {
 		"json",
 		"lua",
@@ -35,4 +35,4 @@ treesitter.setup({
 		enable = true,
 		disable = {},
 	},
-})
+}

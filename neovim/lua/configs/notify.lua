@@ -4,7 +4,7 @@ if not status_ok then
 	return
 end
 
-notify.setup({
+notify.setup {
 	background_colour = "Normal",
 	fps = 60,
 	icons = {
@@ -19,5 +19,5 @@ notify.setup({
 	render = "minimal",
 	stages = "fade_in_slide_out",
 	timeout = 3000,
-})
+}
 vim.notify = notify
