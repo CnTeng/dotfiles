@@ -4,9 +4,9 @@ if not status_ok then
 	return
 end
 
-local actions = require("telescope.actions")
+local actions = require "telescope.actions"
 
-telescope.setup({
+telescope.setup {
 	defaults = {
 		prompt_prefix = " ",
 		selection_caret = " ",
@@ -98,12 +98,12 @@ telescope.setup({
 			-- the default case_mode is "smart_case"
 		},
 		["ui-select"] = {
-			require("telescope.themes").get_dropdown({
+			require("telescope.themes").get_dropdown {
 				-- even more opts
-			}),
+			},
 		},
 	},
-})
+}
 
-telescope.load_extension("fzf")
-telescope.load_extension("ui-select")
+telescope.load_extension "fzf"
+telescope.load_extension "ui-select"

@@ -30,7 +30,6 @@ return {
 				whitespaceBetweenParameters = false,
 				whitespaceInsideBrace = true,
 			},
-			cwd = {},
 			debugging = { createTemporaryIntegratedConsole = false },
 			developer = {
 				bundledModulesPath = {},

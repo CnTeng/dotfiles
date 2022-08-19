@@ -79,7 +79,7 @@ return packer.startup(function(use)
 	-- Keymaps popup
 	use {
 		"folke/which-key.nvim",
-		config = function() require "configs.whichkey" end,
+		config = function() require "configs.which-key" end,
 	}
 
 	-- [[UI]]
@@ -105,7 +105,7 @@ return packer.startup(function(use)
 	}
 
 	-- Colorschemes
-	use { "olimorris/onedarkpro.nvim" }
+	use { "folke/tokyonight.nvim" }
 
 	-- Notification Enhancer
 	use {

@@ -79,11 +79,20 @@ local opts = {
 	nowait = true, -- use `nowait` when creating keymaps
 }
 
+local vopts = {
+	mode = "v", -- NORMAL mode
+	prefix = "<leader>",
+	buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+	silent = true, -- use `silent` when creating keymaps
+	noremap = true, -- use `noremap` when creating keymaps
+	nowait = true, -- use `nowait` when creating keymaps
+}
+
 local mappings = {
 	-- Standard Operations
 	["w"] = { "<cmd>w<CR>", "Save" },
 	["q"] = { "<cmd>q<CR>", "Quit" },
-	["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
+	["h"] = { "<cmd>nohlsearch<CR>", "No highlight" },
 
 	-- Packer
 	p = {
@@ -99,18 +108,25 @@ local mappings = {
 	["a"] = { "<cmd>Alpha<cr>", "Alpha" },
 
 	-- Bufdelete
-	["c"] = { "<cmd>Bdelete<cr>", "Close Buffer" },
+	["c"] = { "<cmd>Bdelete<cr>", "Close buffer" },
 
 	-- Nvim-Tree
 	["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
 
 	-- Comment
-	["/"] = { "<cmd>lua require('Comment.api').toggle.linewise.current()<cr>", "Comment Line" },
+	["/"] = { function() require("Comment.api").toggle.linewise.current() end, "Comment line" },
+
+	-- Recent file
+	["r"] = { function() require("telescope.builtin").oldfiles() end, "Recent file" },
 
 	-- Telescope
-	["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
 	f = {
 		name = "Find",
+		f = { function() require("telescope.builtin").find_files() end, "Files" },
+		F = {
+			function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
+			"Files in all files",
+		},
 		w = { function() require("telescope.builtin").live_grep() end, "Words" },
 		W = {
 			function()
@@ -120,34 +136,30 @@ local mappings = {
 			end,
 			"Words in all files",
 		},
-		f = { function() require("telescope.builtin").find_files() end, "Files" },
-		F = {
-			function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
-			"All files",
-		},
+		u = { function() require("telescope.builtin").grep_string() end, "Word under cursor" },
 		b = { function() require("telescope.builtin").buffers() end, "Buffers" },
 		h = { function() require("telescope.builtin").help_tags() end, "Help" },
 		m = { function() require("telescope.builtin").marks() end, "Marks" },
-		r = { function() require("telescope.builtin").oldfiles() end, "Recent file" },
-
-		M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-		R = { "<cmd>Telescope registers<cr>", "Registers" },
-		k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
-		C = { "<cmd>Telescope commands<cr>", "Commands" },
+		-- Unavailable in windows, because powershell prefer man command alias of Get-Help
+		M = { function() require("telescope.builtin").man_pages() end, "Man" },
+		n = { function() require("telescope").extensions.notify.notify() end, "Notifications" },
+		r = { function() require("telescope.builtin").registers() end, "Registers" },
+		k = { function() require("telescope.builtin").keymaps() end, "Keymaps" },
+		c = { function() require("telescope.builtin").commands() end, "Commands" },
 	},
 
 	-- Gitsigns
 	g = {
 		name = "Git",
-		j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
-		k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
-		l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "View Blame" },
-		p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
-		r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
-		R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
-		s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
-		u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Unstage Hunk" },
-		d = { "<cmd>lua require 'gitsigns'.diffthis()<cr> HEAD<cr>", "View Diff" },
+		j = { function() require("gitsigns").next_hunk() end, "Next hunk" },
+		k = { function() require("gitsigns").prev_hunk() end, "Prev hunk" },
+		l = { function() require("gitsigns").blame_line() end, "View blame" },
+		p = { function() require("gitsigns").preview_hunk() end, "Preview hunk" },
+		r = { function() require("gitsigns").reset_hunk() end, "Reset hunk" },
+		R = { function() require("gitsigns").reset_buffer() end, "Reset buffer" },
+		s = { function() require("gitsigns").stage_hunk() end, "Stage hunk" },
+		u = { function() require("gitsigns").undo_stage_hunk() end, "Unstage hunk" },
+		d = { function() require("gitsigns").diffthis() end, "View diff" },
 		t = { "<cmd>Telescope git_status<cr>", "Status" },
 		b = { "<cmd>Telescope git_branches<cr>", "Branchs" },
 		c = { "<cmd>Telescope git_commits<cr>", "Commits" },
@@ -155,34 +167,18 @@ local mappings = {
 
 	l = {
 		name = "LSP",
-		a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-		d = {
-			"<cmd>Telescope lsp_document_diagnostics<cr>",
-			"Document Diagnostics",
-		},
-		w = {
-			"<cmd>Telescope lsp_workspace_diagnostics<cr>",
-			"Workspace Diagnostics",
-		},
-		f = { "<cmd>lua vim.lsp.buf.format{async=true}<cr>", "Format" },
-		i = { "<cmd>LspInfo<cr>", "Info" },
-		I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
-		j = {
-			"<cmd>lua vim.lsp.diagnostic.goto_next()<CR>",
-			"Next Diagnostic",
-		},
-		k = {
-			"<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",
-			"Prev Diagnostic",
-		},
-		l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
-		q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },
-		r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-		s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
-		S = {
-			"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
-			"Workspace Symbols",
-		},
+		i = { "<cmd>LspInfo<cr>", "LSP info" },
+		I = { "<cmd>Mason<cr>", "Installer info" },
+		f = { function() vim.lsp.buf.formatting_sync() end, "Format code" },
+		a = { function() vim.lsp.buf.code_action() end, "Code action" },
+		r = { function() vim.lsp.buf.rename() end, "Rename current symbol" },
+		s = { function() vim.lsp.buf.signature_help() end, "Signature help" },
+		L = { function() vim.lsp.codelens.run() end, "CodeLens action" },
+		j = { function() vim.lsp.diagnostic.goto_next() end, "Next diagnostic" },
+		k = { function() vim.lsp.diagnostic.goto_prev() end, "Prev diagnostic" },
+		l = { function() vim.lsp.diagnostic.set_loclist() end, "List diagnostic" },
+		d = { function() require("telescope.builtin").diagnostics() end, "Search diagnostics" },
+		R = { function() require("telescope.builtin").lsp_references() end, "Search references" },
 	},
 
 	t = {
@@ -197,5 +193,21 @@ local mappings = {
 	},
 }
 
+local vmappings = {
+	["/"] = { "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", "Toggle comment line" },
+	l = {
+		name = "LSP",
+		a = { function() vim.lsp.buf.range_code_action() end, "Range code action" },
+		f = {
+			function()
+				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, true, true), "n", false)
+				vim.lsp.buf.range_formatting()
+			end,
+			"Range format code",
+		},
+	},
+}
+
 which_key.setup(setup)
 which_key.register(mappings, opts)
+which_key.register(vmappings, vopts)

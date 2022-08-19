@@ -17,10 +17,7 @@ treesitter.setup {
 	ignore_install = {},
 	highlight = {
 		enable = true,
-		disable = {
-			-- "markdown",
-			-- "markdown_inline",
-		},
+		disable = {},
 		additional_vim_regex_highlighting = false,
 	},
 	rainbow = {
