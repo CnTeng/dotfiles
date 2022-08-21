@@ -14,7 +14,7 @@ function trylink {
     return
   }
   else {
-    Write-Host "Link configuration successfully." -ForegroundColor green
+    Write-Host "Link config successfully." -ForegroundColor green
     Write-Host "`n"
   }
 }
@@ -23,21 +23,28 @@ function linkconfig {
   [CmdletBinding()]
   Param([string]$Name, [string]$SourcePath, [string]$TargetPath)
   if (Test-Path $TargetPath) {
-    Write-Host "The configuration of $Name exists."
-    [string]$ispermit = Read-Host "Do you permit to remove the existing configuration and link a new file?(y or n)"
+    Write-Host "The configuration of $Name exists." -ForegroundColor DarkBlue
+    [string]$ispermit = Read-Host "Do you permit to remove the existing config and link a new file?(y or n)"
     if ($ispermit -eq "y") {
       Remove-Item -Path $TargetPath -Recurse
       trylink $SourcePath $TargetPath
     }
     else {
-      Write-Host "Exit"
+      Write-Host "Exit" -ForegroundColor DarkGreen
       Write-Host "`n"
       return
     }
   }
   else {
-    trylink $SourcePath $TargetPath
-    return
+    [string]$isinstall = Read-Host "Have you already installed" $Name "?(y or n)"
+    if ($isinstall -eq "y") {
+      trylink $SourcePath $TargetPath
+    }
+    else {
+      Write-Host "Exit" -ForegroundColor DarkGreen
+      Write-Host "`n"
+      return
+    }
   }
 }
 

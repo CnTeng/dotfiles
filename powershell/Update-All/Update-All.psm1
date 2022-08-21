@@ -25,9 +25,9 @@ function Update-All {
   conda update --all
 
   # wsl update (zypper)
-  Write-Host "wsl update (zypper)" -ForegroundColor Blue
-  wsl --exec sudo zypper up
-  wsl --exec sudo zypper dup
+  Write-Host "wsl update" -ForegroundColor Blue
+  wsl --exec sudo apt update
+  wsl --exec sudo apt upgrade
 } 
 
 Export-ModuleMember -Function Update-All
