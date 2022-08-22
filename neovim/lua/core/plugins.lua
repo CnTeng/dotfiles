@@ -145,6 +145,12 @@ return packer.startup(function(use)
 		after = "nvim-cmp",
 	}
 
+	-- Cmdline completion source
+	use {
+		"hrsh7th/cmp-cmdline",
+		after = "nvim-cmp",
+	}
+
 	-- LSP completion source
 	use {
 		"hrsh7th/cmp-nvim-lsp",
@@ -224,9 +230,11 @@ return packer.startup(function(use)
 	}
 
 	-- [[DAP]]
-	use { "mfussenegger/nvim-dap" }
+	use {
+		"mfussenegger/nvim-dap",
+		config = function() require "configs.dap" end,
+	}
 	use { "rcarriga/nvim-dap-ui" }
-	use { "ravenxrz/DAPInstall.nvim" }
 
 	-- [[Markdown]]
 	use {
