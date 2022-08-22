@@ -4,9 +4,8 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 # Use custom format
-format = """
-$all$username@$hostname $shell$character"""
-add_newline = true
+format = '''\[$username@$shell\] $character $directory'''
+add_newline = false
 
 [aws]
 format = '\[[$symbol($profile)(\($region\))(\[$duration\])]($style)\]'
@@ -15,7 +14,8 @@ format = '\[[$symbol($profile)(\($region\))(\[$duration\])]($style)\]'
 format = '\[[$symbol($version(-$name))]($style)\]'
 
 [character] 
-success_symbol = "[➜](bold green)"
+format = "$symbol"
+success_symbol = "[->](bold green)"
 error_symbol = "[✗](bold red)"
 vicmd_symbol = "[<](bold green)"
 
@@ -154,7 +154,9 @@ format = '\[[$symbol($version)]($style)\]'
 format = '\[[$symbol($version)]($style)\]'
 
 [shell]
+format = "[$indicator]($style)"
 fish_indicator = ""
+zsh_indicator = "z_"
 powershell_indicator = "_"
 disabled = false
 
