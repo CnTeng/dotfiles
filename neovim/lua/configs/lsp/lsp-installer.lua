@@ -10,7 +10,6 @@ local servers = {
 	"clangd",
 	"gopls",
 	"pyright",
-	"remark_ls",
 	"powershell_es",
 }
 
