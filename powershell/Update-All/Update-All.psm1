@@ -1,11 +1,6 @@
 function Update-All {
   Param()
-  # scoop update (user)
-  Write-Host "scoop update *" -ForegroundColor Blue
-  scoop update *
-  Write-Host "`n"
-
-  # scoop update (global)
+  # scoop update
   Write-Host "sudo scoop update -g" -ForegroundColor Blue
   sudo scoop update * -g
   Write-Host "`n"
