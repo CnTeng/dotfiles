@@ -1,109 +1,96 @@
-function trylink {
+# Try to link the configs and detect errors
+function Test-Config {
   [CmdletBinding()]
   Param([string]$SourcePath, [string]$TargetPath)
-  [Bool]$iserror = $false
+  [Bool]$IsError = $false
   try {
     New-Item -ItemType SymbolicLink -Path $TargetPath -Target $SourcePath -ErrorAction Stop
   }
   catch {
-    Write-Host "Error" -ForegroundColor red
-    Write-Host "`n"
-    $iserror = $true
+    Write-Host "Error`n" -ForegroundColor red
+    $IsError = $true
   }
-  if ($iserror) {
+  if ($IsError) {
     return
   }
   else {
-    Write-Host "Link config successfully." -ForegroundColor green
-    Write-Host "`n"
+    Write-Host "Success`n" -ForegroundColor green
   }
 }
 
-function linkconfig {
+# The main function of link the configs
+function Set-Config {
   [CmdletBinding()]
   Param([string]$Name, [string]$SourcePath, [string]$TargetPath)
   if (Test-Path $TargetPath) {
-    Write-Host "The configuration of $Name exists." -ForegroundColor DarkBlue
-    [string]$ispermit = Read-Host "Do you permit to remove the existing config and link a new file?(y or n)"
-    if ($ispermit -eq "y") {
+    Write-Host "The config of $Name exists." -ForegroundColor DarkBlue
+    [string]$IsPermit = Read-Host "Remove the existing config and link a new one?(y or n)"
+    if ($IsPermit -eq "y") {
       Remove-Item -Path $TargetPath -Recurse
-      trylink $SourcePath $TargetPath
+      Test-Config $SourcePath $TargetPath
     }
     else {
-      Write-Host "Exit" -ForegroundColor DarkGreen
-      Write-Host "`n"
+      Write-Host "Exit`n" -ForegroundColor DarkGreen
       return
     }
   }
   else {
-    [string]$isinstall = Read-Host "Have you already installed" $Name "?(y or n)"
-    if ($isinstall -eq "y") {
+    [string]$IsInstall = Read-Host "Have you already installed" $Name "?(y or n)"
+    if ($IsInstall -eq "y") {
       trylink $SourcePath $TargetPath
     }
     else {
-      Write-Host "Exit" -ForegroundColor DarkGreen
-      Write-Host "`n"
+      Write-Host "Exit`n" -ForegroundColor DarkGreen
       return
     }
   }
 }
 
-# neovim
-$nvim_name = "neovim"
-$nvim_spath = "$Home\Code\dotfiles\neovim"
-$nvim_tpath = "$Home\AppData\Local\nvim"
-linkconfig $nvim_name $nvim_spath $nvim_tpath 
+$Names = "neovim", "powershell", "powershell modules", "windows_terminal", "starship"
+$SourcePaths = (
+  "$Home\Code\dotfiles\neovim",
+  "$Home\Code\dotfiles\powershell\Microsoft.Powershell_profile.ps1",
+  "$Home\Code\dotfiles\powershell\Update-All",
+  "$Home\Code\dotfiles\windows_terminal\settings.json",
+  "$Home\Code\dotfiles\starship\starship.toml"
+)
+$TargetPaths = (
+  "$Home\AppData\Local\nvim",
+  "$Home\Documents\PowerShell\Microsoft.PowerShell_profile.ps1",
+  "$Home\Documents\powershell\modules\Update-All",
+  "$Home\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json",
+  "$Home\.config\starship.toml"
+)
+for ($i = 0; $i -le ($Names.Length - 1); $i++) {
+  Set-Config $Names[$i] $SourcePaths[$i] $TargetPaths[$i] 
+}
 
-# powershell
-$pwsh_name = "powershell"
-$pwsh_spath = "$Home\Code\dotfiles\powershell\Microsoft.Powershell_profile.ps1"
-$pwsh_tpath = "C:\Users\tengy\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
-linkconfig $pwsh_name $pwsh_spath $pwsh_tpath
+# Set the proxy
+$ProxyIp = "127.0.0.1"
+$SocksPort = 10808
+[string]$IsPermit = Read-Host "Set the proxys?(y or n)"
+if ($IsPermit -eq "y") {
+  Write-Host "Set the proxy of scoop" -ForegroundColor DarkBlue
+  scoop config rm proxy
+  scoop config proxy "socks5://$ProxyIp`:$SocksPort"
 
-# powershell custom modules
-$pwshmod_name = "powershell modules"
-$pwshmod_spath = "$Home\Code\dotfiles\powershell\Update-All"
-$pwshmod_tpath = "$Home\Documents\powershell\modules\Update-All"
-linkconfig $pwshmod_name $pwshmod_spath $pwshmod_tpath
+  Write-Host "Set the proxy of git" -ForegroundColor DarkBlue
+  git config --global user.name "CnTeng"
+  git config --global user.email "tengyufei@live.com"
+  git config --global http.proxy "socks5://$ProxyIp`:$SocksPort"
+  git config --global https.proxy "socks5://$ProxyIp`:$SocksPort"
+  git config --global core.autocrlf true
 
-# windows terminal
-$wt_name = "windows terminal"
-$wt_spath = "$Home\Code\dotfiles\windows_terminal\settings.json"
-$wt_tpath = "$Home\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
-linkconfig $wt_name $wt_spath $wt_tpath
+  Write-Host "Set the proxy of npm" -ForegroundColor DarkBlue
+  npm config delete proxy
+  npm config delete https-proxy
+  npm config set proxy "socks5://$ProxyIp`:$SocksPort"
+  npm config set https-proxy "socks5://$ProxyIp`:$SocksPort"
 
-# scoop
-$scoop_name = "scoop"
-$scoop_spath = "$Home\Code\dotfiles\scoop\config.json"
-$scoop_tpath = "$Home\.config\scoop\config.json"
-linkconfig $scoop_name $scoop_spath $scoop_tpath
-
-# alacritty
-$alacritty_name = "alacritty"
-$alacritty_spath = "$Home\Code\dotfiles\alacritty\alacritty.yml"
-$alacritty_tpath = "$Home\AppData\Roaming\alacritty\alacritty.yml"
-linkconfig $alacritty_name $alacritty_spath $alacritty_tpath
-
-# starship
-$starship_name = "starship"
-$starship_spath = "$Home\Code\dotfiles\starship\starship.toml"
-$starship_tpath = "$Home\.config\starship.toml"
-linkconfig $starship_name $starship_spath $starship_tpath
-
-# git
-$git_name = "git"
-$git_spath = "$Home\Code\dotfiles\git\.gitconfig"
-$git_tpath = "$Home\.gitconfig"
-linkconfig $git_name $git_spath $git_tpath
-
-# npm
-$npm_name = "npm"
-$npm_spath = "$Home\Code\dotfiles\npm\.npmrc"
-$npm_tpath = "$Home\.npmrc"
-linkconfig $npm_name $npm_spath $npm_tpath
-
-# conda
-$conda_name = "conda"
-$conda_spath = "$Home\Code\dotfiles\conda\.condarc"
-$conda_tpath = "$Home\.condarc"
-linkconfig $conda_name $conda_spath $conda_tpath
+  Write-Host "Set the source of conda" -ForegroundColor DarkBlue
+  conda config --remove-key default_channels
+  conda config --set show_channel_urls yes
+  conda config --add default_channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+  conda config --add default_channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
+  conda config --add default_channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2
+}
