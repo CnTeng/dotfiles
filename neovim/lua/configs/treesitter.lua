@@ -13,6 +13,7 @@ treesitter.setup {
 		"cpp",
 		"go",
 		"python",
+		"bash",
 	},
 	ignore_install = {},
 	highlight = {

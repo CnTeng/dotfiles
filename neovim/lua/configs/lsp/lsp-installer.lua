@@ -4,13 +4,14 @@ if not mason_lspconfig_ok then
 	return
 end
 
+local shell = vim.fn.has "win32" == 1 and "powershell_es" or "bashls"
 local servers = {
 	"jsonls",
 	"sumneko_lua",
 	"clangd",
 	"gopls",
 	"pyright",
-	"powershell_es",
+	shell,
 }
 
 mason_lspconfig.setup {
