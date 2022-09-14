@@ -1,4 +1,4 @@
-vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+vim.g.catppuccin_flavour = "macchiato" -- latte, frappe, macchiato, mocha
 
 local status_ok, catppuccin = pcall(require, "catppuccin")
 if not status_ok then
@@ -11,10 +11,24 @@ local cp = require("catppuccin.palettes").get_palette()
 catppuccin.setup {
 	highlight_overrides = {
 		all = {
-			QuickFixLine = { bg = ucolors.darken(cp.blue, 0.5), style = { "bold" } },
-			Visual = { bg = ucolors.darken(cp.blue, 0.5), style = { "bold" } },
-			VisualNOS = { bg = ucolors.darken(cp.blue, 0.5), style = { "bold" } },
+			QuickFixLine = { bg = ucolors.darken(cp.blue, 0.36), style = { "bold" } },
+			Visual = { bg = ucolors.darken(cp.blue, 0.36), style = { "bold" } },
+			VisualNOS = { bg = ucolors.darken(cp.blue, 0.36), style = { "bold" } },
 		},
+	},
+  styles = {
+		comments = { "italic" },
+		conditionals = {},
+		loops = {},
+		functions = {},
+		keywords = {},
+		strings = {},
+		variables = {},
+		numbers = {},
+		booleans = {},
+		properties = {},
+		types = {},
+		operators = {},
 	},
 	integrations = {
 		gitsigns = true,
