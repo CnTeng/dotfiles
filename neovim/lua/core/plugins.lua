@@ -217,6 +217,10 @@ return packer.startup(function(use)
 		"numToStr/Comment.nvim",
 		config = function() require "configs.comment" end,
 	}
+	use {
+		"folke/todo-comments.nvim",
+		config = function() require "configs.todo-comments" end,
+	}
 
 	-- Context based commenting
 	use { "JoosepAlviste/nvim-ts-context-commentstring" }
