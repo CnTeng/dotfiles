@@ -75,6 +75,11 @@ if ($IsPermit -eq "y") {
   scoop config proxy "socks5://$ProxyIp`:$SocksPort"
 
   Write-Host "Set the proxy of git" -ForegroundColor DarkBlue
+  git config --global --unset user.name
+  git config --global --unset user.email
+  git config --global --unset http.proxy
+  git config --global --unset https.proxy
+  git config --global --unset core.autocrlf
   git config --global user.name "CnTeng"
   git config --global user.email "tengyufei@live.com"
   git config --global http.proxy "socks5://$ProxyIp`:$SocksPort"
