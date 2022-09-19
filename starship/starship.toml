@@ -24,9 +24,9 @@ style = "bold white"
 format = "$symbol "
 success_symbol = "[>](bold green)"
 error_symbol = "[x](bold red)"
-vicmd_symbol = "[v](bold green)"
-vimcmd_replace_one_symbol = "[v](bold purple)"
-vimcmd_replace_symbol = "[v](bold purple)"
+vicmd_symbol = "[n](bold green)"
+vimcmd_replace_one_symbol = "[r](bold purple)"
+vimcmd_replace_symbol = "[r](bold purple)"
 vimcmd_visual_symbol = "[v](bold yellow)"
 
 [directory]
@@ -37,7 +37,6 @@ home_symbol = "~"
 [shell]
 format = "[$indicator]($style)"
 fish_indicator = ""
-zsh_indicator = "z_"
 powershell_indicator = "_"
 disabled = false
 
