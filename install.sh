@@ -47,22 +47,26 @@ set_config() {
   fi
 }
 
-names=(fish_conf fish_config fish_plugins fish_var neovim starship)
-cmd=(fish fish fish fish nvim starship)
+names=(fish_proxy fish_config fish_plugins fish_var neovim tmux tmux.conf starship)
+cmd=(fish fish fish fish nvim tmux tmux starship)
 sc_paths=(
-  ~/Code/dotfiles/fish/conf.d
+  ~/Code/dotfiles/fish/conf.d/proxy.fish
   ~/Code/dotfiles/fish/config.fish
   ~/Code/dotfiles/fish/fish_plugins
   ~/Code/dotfiles/fish/fish_variables
   ~/Code/dotfiles/neovim
+  ~/Code/dotfiles/tmux
+  ~/Code/dotfiles/tmux/.tmux.conf
   ~/Code/dotfiles/starship/starship.toml
 )
 tg_paths=(
-  ~/.config/fish/conf.d
+  ~/.config/fish/conf.d/proxy.fish
   ~/.config/fish/config.fish
   ~/.config/fish/fish_plugins
   ~/.config/fish/fish_variables
   ~/.config/nvim
+  ~/.tmux
+  ~/.tmux.conf
   ~/.config/starship.toml
 )
 
