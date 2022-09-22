@@ -18,11 +18,12 @@ function Update-All {
   # conda update
   Write-Host "conda update -all" -ForegroundColor Blue
   conda update --all
+  Write-Host "`n"
 
   # wsl update (zypper)
   Write-Host "wsl update" -ForegroundColor Blue
   wsl --exec sudo apt update
-  wsl --exec sudo apt upgrade
+  wsl --exec sudo apt upgrade -y
 } 
 
 Export-ModuleMember -Function Update-All

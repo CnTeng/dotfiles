@@ -77,12 +77,17 @@ for ($i = 0; $i -le ($Names.Length - 1); $i++) {
 # Set the proxy
 $ProxyIp = "127.0.0.1"
 $SocksPort = 10808
+$HttpPort = 10809
 Write-Host "Set the proxys?(y or n) " -ForegroundColor Blue -NoNewline
 [string]$IsPermit = Read-Host
 if ($IsPermit -eq "y") {
+  Write-Host "Set the proxy of curl" -ForegroundColor Blue
+  write-output "proxy=`"http://$ProxyIp`:$HttpPort`"" > "$Home\AppData\Roaming\_curlrc"
+
   Write-Host "Set the proxy of scoop" -ForegroundColor Blue
   scoop config rm proxy
-  scoop config proxy "socks5://$ProxyIp`:$SocksPort"
+  scoop config proxy "$ProxyIp`:$HttpPort"
+  scoop config aria2-enabled false
 
   Write-Host "Set the proxy of git" -ForegroundColor Blue
   git config --global --unset user.name
@@ -92,8 +97,8 @@ if ($IsPermit -eq "y") {
   git config --global --unset core.autocrlf
   git config --global user.name "CnTeng"
   git config --global user.email "tengyufei@live.com"
-  git config --global http.proxy "socks5://$ProxyIp`:$SocksPort"
-  git config --global https.proxy "socks5://$ProxyIp`:$SocksPort"
+  git config --global http.proxy "http://$ProxyIp`:$HttpPort"
+  git config --global https.proxy "http://$ProxyIp`:$HttpPort"
   git config --global core.autocrlf true
 
   Write-Host "Set the proxy of npm" -ForegroundColor Blue
