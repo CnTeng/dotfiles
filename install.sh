@@ -47,7 +47,7 @@ set_config() {
   fi
 }
 
-names=(fish_proxy fish_config fish_plugins fish_fun neovim tmux tmux.conf starship)
+names=(fish_proxy fish_config fish_plugins fish_fun neovim tmux.conf starship)
 cmd=(fish fish fish fish nvim tmux tmux starship)
 sc_paths=(
   ~/Code/dotfiles/fish/conf.d/proxy.fish
@@ -55,7 +55,6 @@ sc_paths=(
   ~/Code/dotfiles/fish/fish_plugins
   ~/Code/dotfiles/fish/functions/fish_user_key_bindings.fish
   ~/Code/dotfiles/neovim
-  ~/Code/dotfiles/tmux
   ~/Code/dotfiles/tmux/.tmux.conf
   ~/Code/dotfiles/starship/starship.toml
 )
@@ -65,7 +64,6 @@ tg_paths=(
   ~/.config/fish/fish_plugins
   ~/.config/fish/functions/fish_user_key_bindings.fish
   ~/.config/nvim
-  ~/.tmux
   ~/.tmux.conf
   ~/.config/starship.toml
 )
@@ -76,4 +74,6 @@ done
 
 fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
 fish -c "fisher update"
+fish -c "git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm"
+
 # sudo ln -s "C:/Program Files/Neovim/bin/win32yank.exe" "/usr/local/bin/win32yank.exe"
