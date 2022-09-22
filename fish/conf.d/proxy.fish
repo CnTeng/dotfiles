@@ -21,8 +21,8 @@ function git_proxy
   git config --global --unset https.proxy
   git config --global user.name "CnTeng"
   git config --global user.email "tengyufei@live.com"
-  git config --global http.proxy "socks5://$host_ip:$socks_port"
-  git config --global https.proxy "socks5://$host_ip:$socks_port"
+  git config --global http.proxy "http://$host_ip:$http_port"
+  git config --global https.proxy "http://$host_ip:$http_port"
 end
 
 # Set proxy for npm
@@ -34,7 +34,7 @@ function npm_proxy
 end
 
 # Set proxy which is login
-if status --is-login
+if status is-login
   switch $hostname 
     case $wsl_name
       set host_ip (cat /etc/resolv.conf | grep nameserver | awk '{ print $2 }')
