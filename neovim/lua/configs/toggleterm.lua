@@ -22,7 +22,7 @@ toggleterm.setup {
 	persist_size = true,
 	direction = "float",
 	close_on_exit = true,
-	shell = vim.fn.has "win32" == 1 and "pwsh -Nologo" or "zsh",
+	shell = vim.fn.has "win32" == 1 and "pwsh -Nologo" or "fish",
 	float_opts = {
 		border = "curved",
 		winblend = 0,
