@@ -4,4 +4,3 @@ if status is-login
 end
 starship init fish | source
 zoxide init fish | source
-

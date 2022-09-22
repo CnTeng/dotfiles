@@ -48,12 +48,12 @@ Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
 <# Keymaps #>
 # Undo
 Set-PSReadLineKeyHandler -Key "Ctrl+z" -Function Undo
+# Use vimlike keybindings for history
+Set-PSReadlineKeyHandler -Key "Ctrl+k" -Function PreviousHistory
+Set-PSReadlineKeyHandler -Key "Ctrl+j" -Function NextHistory
 
 # Autocomplete
 Set-PSReadlineKeyHandler -Key Tab -Function Complete
-# Autocompletion for arrow keys
-Set-PSReadlineKeyHandler -Key "Ctrl+k" -Function PreviousHistory
-Set-PSReadlineKeyHandler -Key "Ctrl+j" -Function NextHistory
 # Shows navigable menu of all options
 Set-PSReadLineKeyHandler -Key "Ctrl+s" -Function MenuComplete
 # AcceptNextSuggestionWord
