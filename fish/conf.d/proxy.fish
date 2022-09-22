@@ -25,6 +25,24 @@ function git_proxy
   git config --global https.proxy "http://$host_ip:$http_port"
 end
 
+# Set proxy for ssh
+function ssh_proxy
+  rm -rf ~/.ssh/config
+  echo "ProxyCommand connect -S $host_ip:$http_port -a none %h %p" >> ~/.ssh/config
+  echo "Host github.com" >> ~/.ssh/config
+  echo "  User git" >> ~/.ssh/config
+  echo "  Port 22" >> ~/.ssh/config
+  echo "  Hostname github.com" >> ~/.ssh/config
+  echo "  IdentityFile "~/.ssh/id_ed25519"" >> ~/.ssh/config
+  echo "  TCPKeepAlive yes" >> ~/.ssh/config
+  echo "Host ssh.github.com" >> ~/.ssh/config
+  echo "  User git" >> ~/.ssh/config
+  echo "  Port 443" >> ~/.ssh/config
+  echo "  Hostname ssh.github.com" >> ~/.ssh/config
+  echo "  IdentityFile "~/.ssh/id_ed25519"" >> ~/.ssh/config
+  echo "  TCPKeepAlive yes" >> ~/.ssh/config
+end
+
 # Set proxy for npm
 function npm_proxy
   npm config delete proxy
@@ -42,6 +60,7 @@ if status is-login
       set http_port 10811
       global_proxy
       git_proxy
+      ssh_proxy
       npm_proxy
     case $pad_name
       global_proxy
