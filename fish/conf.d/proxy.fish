@@ -29,8 +29,8 @@ end
 function ssh_proxy
   rm -rf ~/.ssh/config
   echo "Host github.com" >> ~/.ssh/config
-  echo "  Hostname ssh.github.com" >> ~/.ssh/config
-  echo "  Port 443" >> ~/.ssh/config
+  echo "  Hostname github.com" >> ~/.ssh/config
+  echo "  Port 22" >> ~/.ssh/config
   echo "  User git" >> ~/.ssh/config
   echo "  ProxyCommand nc -v -x $host_ip:$http_port %h %p" >> ~/.ssh/config
 end
